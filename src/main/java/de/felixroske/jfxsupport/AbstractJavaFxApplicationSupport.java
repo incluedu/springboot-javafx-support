@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -84,6 +85,43 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         newStage.initOwner(getStage());
         newStage.setTitle(view.getDefaultTitle());
         newStage.initStyle(view.getDefaultStyle());
+
+        newStage.showAndWait();
+    }
+
+    /**
+     * @param window   The FxmlView derived class that should be shown.
+     * @param modality See {@code javafx.stage.Modality}.
+     * @param owner
+     * @param userData
+     */
+    public void showView(final Class<? extends AbstractFxmlView> window, final Modality modality, Window owner, Object userData) {
+        final AbstractFxmlView view = applicationContext.getBean(window);
+        Stage newStage = new Stage();
+
+        Scene newScene;
+        if (view.getView().getScene() != null) {
+            // This view was already shown so
+            // we have a scene for it and use this one.
+            newScene = view.getView().getScene();
+        } else {
+            newScene = new Scene(view.getView());
+        }
+
+        newStage.setScene(newScene);
+        newStage.initModality(modality);
+        newStage.initOwner(owner);
+        newStage.setTitle(view.getDefaultTitle());
+        newStage.initStyle(view.getDefaultStyle());
+
+        Object controller = view.getPresenter();
+        if (controller instanceof AddEvents) {
+            ((AddEvents) controller).addEvents(newStage);
+        }
+
+        if (controller instanceof UserData) {
+            ((UserData) controller).addUserData(userData);
+        }
 
         newStage.showAndWait();
     }
