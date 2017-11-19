@@ -99,6 +99,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
         final AbstractFxmlView view = applicationContext.getBean(window);
         Stage newStage = new Stage();
 
+
         Scene newScene;
         if (view.getView().getScene() != null) {
             // This view was already shown so

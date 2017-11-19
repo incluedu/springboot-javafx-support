@@ -9,4 +9,5 @@ import javafx.stage.Window;
  */
 public interface AddEvents {
     public void addEvents(Window window);
+
 }

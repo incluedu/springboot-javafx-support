@@ -13,9 +13,10 @@ public interface UserData {
     public void addUserData(Object data);
 
     /**
-     * Use this to recive teh userdata from the class
+     * Use this to receive the userdata from the class
      *
      * @return Userdata
      */
     public Object getUserData();
+
 }
