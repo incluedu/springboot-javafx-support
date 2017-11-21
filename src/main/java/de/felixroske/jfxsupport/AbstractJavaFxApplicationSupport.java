@@ -95,7 +95,7 @@ public abstract class AbstractJavaFxApplicationSupport extends Application {
      * @param owner
      * @param userData
      */
-    public void showView(final Class<? extends AbstractFxmlView> window, final Modality modality, Window owner, Object userData) {
+    public static void showView(final Class<? extends AbstractFxmlView> window, final Modality modality, Window owner, Object userData) {
         final AbstractFxmlView view = applicationContext.getBean(window);
         Stage newStage = new Stage();
 
